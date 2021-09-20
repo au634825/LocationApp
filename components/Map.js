@@ -3,12 +3,13 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 import { useSelector, useDispatch } from 'react-redux'
 import tw from 'tailwind-react-native-classnames'
-import { selectDestination, selectOrigin, setTravelTimeInformation } from '../slices/navSlice'
+import { selectDestination, selectMode, selectOrigin, setTravelTimeInformation } from '../slices/navSlice'
 import { GOOGLE_MAPS_APIKEY } from "@env";
 
 const Map = () => {
     const destination = useSelector(selectDestination);
     const origin = useSelector(selectOrigin);
+    const mode = useSelector(selectMode);
     const dispatch = useDispatch();
     const mapRef = useRef(null);
 
@@ -25,7 +26,8 @@ const Map = () => {
             units=metric
             &origins=${origin.description}
             &destinations=${destination.description}
-            &key=${GOOGLE_MAPS_APIKEY}`
+            &key=${GOOGLE_MAPS_APIKEY}
+            &mode=${mode.toLowerCase()}`
                 ).then(res => res.json())
                     .then(data => {
                         dispatch(setTravelTimeInformation(data.rows[0].elements[0]));
@@ -33,7 +35,7 @@ const Map = () => {
             };
             getTravelTime();
         }
-    }, [origin, destination, GOOGLE_MAPS_APIKEY]);
+    }, [origin, destination, GOOGLE_MAPS_APIKEY, mode]);
 
     return (
         <MapView
@@ -55,6 +57,7 @@ const Map = () => {
                     apikey={GOOGLE_MAPS_APIKEY}
                     strokeWidth={4}
                     strokeColor={'rgba(10,132,255,1)'}
+                    mode={mode}
                 />
             )}
             {destination?.location && (

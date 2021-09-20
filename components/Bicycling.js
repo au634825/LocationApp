@@ -1,30 +1,25 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames'
 import { selectTravelTimeInformation } from '../slices/navSlice';
 
-const NavigateInfo = () => {
+const Bicycling = () => {
     const travelTimeInformation = useSelector(selectTravelTimeInformation);
-    const Stack = createStackNavigator();
 
-    
     return (
-        <SafeAreaView style={tw`bg-white flex-1`}>
+        <View>
             <Text style={tw`text-center pb-6 text-xl -mt-4 font-semibold`}>Rejse information</Text>
-            <View style={tw`border-t border-gray-200 flex-shrink`}/>
+            <View style={tw`border-t border-gray-200 flex-shrink`} />
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Afstand - {travelTimeInformation?.distance?.text}</Text>
                 <Text style={styles.text}>Tid - {travelTimeInformation?.duration?.text}</Text>
-
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 
-export default NavigateInfo
+export default Bicycling
 
 const styles = StyleSheet.create({
     textContainer: {
@@ -32,11 +27,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
 
-        
+
     },
     text: {
         padding: 10,
         fontSize: 18,
-        
+
     }
 })

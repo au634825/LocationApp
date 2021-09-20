@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux'
 import HomeScreen from './screens/HomeScreen';
 import { store } from './store';
@@ -16,23 +16,23 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-      <StatusBar style="dark"/> 
+        <StatusBar style="dark" />
         <SafeAreaProvider>
           <Stack.Navigator>
             <Stack.Screen
               name="HomeScreen"
-              component={HomeScreen} 
-              options = {{
+              component={HomeScreen}
+              options={{
                 headerShown: false,
               }}
-              />
-               <Stack.Screen
+            />
+            <Stack.Screen
               name="MapScreen"
-              component={MapScreen} 
-              options = {{
+              component={MapScreen}
+              options={{
                 headerShown: false,
               }}
-              />
+            />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
